@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head><meta name="copyright" content="© 2026 Md. Sadikul Islam (এমডি সাদিকুল ইসলাম), SRG Shopping Mall. All rights reserved."><!-- © 2026 Md. Sadikul Islam (এমডি সাদিকুল ইসলাম), SRG Shopping Mall. All rights reserved. অনুমতি ছাড়া কপি, বদল বা পুনর্ব্যবহার নিষিদ্ধ। --><link rel="manifest" href="seller-manifest.json"><link rel="icon" href="icon-seller-192.png"><link rel="apple-touch-icon" href="icon-seller-192.png"><meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d47a1">
+<title>SRG Admin</title>
+<style>
+i[class*="fa-"]{display:inline-block;line-height:1;font-style:normal;vertical-align:-0.125em}
+i[class*="fa-"] svg{width:1em;height:1em;display:block}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,'Noto Sans Bengali',sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#f4f6f9;color:#333;display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+
+/* লগইন */
+.login{position:fixed;inset:0;z-index:5000;background:linear-gradient(160deg,#0d47a1,#007bff 60%,#4facfe);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border-radius:20px;padding:26px 22px;width:100%;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center}
+.login-logo{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#007bff,#0d47a1);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:10px}
+.login-card h2{font-size:20px;margin-bottom:2px}
+.login-card .sub{font-size:12px;color:#888;margin-bottom:18px}
+.login-err{color:#dc3545;font-size:13px;min-height:18px;margin-bottom:8px}
+.login-note{font-size:11px;color:#999;margin-top:14px;line-height:1.6}
+
+.header{background:linear-gradient(135deg,#0d47a1,#007bff);color:#fff;padding:13px 15px;display:flex;align-items:center;justify-content:space-between}
+.header .title{font-size:18px;font-weight:bold;letter-spacing:.4px;display:flex;align-items:center;gap:8px}
+.header .sub{font-size:11px;opacity:.85;margin-top:2px}
+.header-actions{display:flex;align-items:center;gap:8px}
+.badge-admin{background:#ffc107;color:#222;font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.hbtn{background:rgba(255,255,255,.18);border:none;color:#fff;width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+#app{display:none;flex-direction:column;flex:1;min-height:0}
+.content-area{flex:1;padding:15px;overflow-y:auto}
+.page{display:none;animation:fadeIn .3s ease-in-out}
+.active-page{display:block}
+h2.sec{font-size:16px;margin:18px 0 10px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:6px}
+h2.sec:first-child{margin-top:0}
+
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat-card{background:#fff;border-radius:14px;padding:14px;box-shadow:0 4px 12px rgba(20,40,80,.07);display:flex;align-items:center;gap:12px;border:1px solid #eef1f5}
+.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0}
+.stat-card .num{font-size:17px;font-weight:bold}
+.stat-card .lbl{font-size:12px;color:#777}
+.box{background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 4px 12px rgba(20,40,80,.07);border:1px solid #eef1f5}
+.row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:14px;gap:8px;text-align:left}
+.row:last-child{border-bottom:none}
+.muted{color:#888;font-size:12px}
+.warn{color:#dc3545;font-weight:bold}
+.empty{text-align:center;color:#999;padding:25px 10px;font-size:14px;line-height:1.7}
+.empty i{font-size:38px;display:block;margin-bottom:8px;color:#cfd8e3}
+
+.chart{display:flex;align-items:flex-end;gap:8px;height:130px;padding-top:8px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bar{width:100%;max-width:28px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#4facfe,#007bff);min-height:3px}
+.bar-col small{font-size:10px;color:#888;margin-top:4px}
+.bar-col .bv{font-size:9px;color:#555;margin-bottom:2px;white-space:nowrap}
+
+.btn{border:none;border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;color:#fff;background:#007bff;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:600}
+.btn:active{opacity:.85}
+.btn.green{background:#25d366}.btn.red{background:#dc3545}.btn.gray{background:#6c757d}.btn.orange{background:#ff5722}
+.btn.block{width:100%;padding:12px;font-size:15px}
+.toolbar{display:flex;gap:8px;margin-bottom:10px}
+.search-box{flex:1;display:flex;align-items:center;background:#fff;padding:9px 12px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.search-box i{color:#757575;margin-right:8px}
+.search-box input{border:none;outline:none;width:100%;font-size:14px;background:none}
+.form-group{margin-bottom:12px;text-align:left}
+.form-group label{display:block;font-size:13px;margin-bottom:4px;color:#555;font-weight:bold}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px;outline:none;background:#f9f9f9}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#007bff;background:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;background:#fff;border:1px solid #ddd;border-radius:20px;padding:6px 13px;font-size:12px;cursor:pointer}
+.chip.on{background:#007bff;color:#fff;border-color:#007bff}
+
+.p-item{display:flex;align-items:center;background:#fff;border-radius:14px;padding:10px;margin-bottom:10px;box-shadow:0 4px 12px rgba(20,40,80,.07);border:1px solid #eef1f5}
+.p-item img{width:64px;height:64px;object-fit:cover;border-radius:10px;background:#eaeaea}
+.p-info{flex:1;margin-left:12px;text-align:left;min-width:0}
+.p-info h3{font-size:14px;margin-bottom:3px}
+.price{color:#ff5722;font-weight:bold;font-size:13px}
+.tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-right:4px;color:#fff}
+.tag.ok{background:#28a745}.tag.low{background:#ff9800}.tag.out{background:#dc3545}.tag.cat{background:#6c757d}
+.p-actions{display:flex;flex-direction:column;gap:4px}
+.icon-btn{background:none;border:none;font-size:18px;cursor:pointer;padding:6px 8px}
+.icon-btn.edit{color:#007bff}.icon-btn.del{color:#dc3545}
+
+.o-card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 4px 12px rgba(20,40,80,.07);text-align:left;font-size:13px;border:1px solid #eef1f5}
+.o-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:bold;font-size:14px}
+.o-card p{margin:4px 0;color:#555;line-height:1.5}
+.o-line{display:flex;justify-content:space-between;padding:2px 0;color:#444}
+.o-sum{border-top:1px dashed #d5dce6;margin-top:8px;padding-top:8px}
+.o-sum .o-line.t{font-weight:bold;color:#222;font-size:14px}
+.call{color:#007bff;text-decoration:none;font-weight:600;margin-left:6px}
+.st{padding:3px 10px;border-radius:12px;font-size:11px;color:#fff;font-weight:bold}
+.st-pending{background:#ff9800}.st-shipped{background:#007bff}.st-delivered{background:#28a745}.st-cancelled{background:#dc3545}
+.o-card select{margin-top:10px;width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:13px;background:#fff}
+
+.c-item{display:flex;align-items:center;background:#fff;border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer;box-shadow:0 4px 12px rgba(20,40,80,.07);border:1px solid #eef1f5}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#007bff,#0d47a1);color:#fff;display:flex;align-items:center;justify-content:center;margin-right:12px;flex-shrink:0}
+.thread{display:flex;flex-direction:column;gap:8px;margin:10px 0;min-height:200px}
+.msg{max-width:80%;padding:8px 12px;border-radius:14px;font-size:14px;word-wrap:break-word;text-align:left}
+.msg small{display:block;font-size:10px;opacity:.7;margin-top:2px}
+.msg.cust{background:#fff;align-self:flex-start;box-shadow:0 1px 3px rgba(0,0,0,.1);border-bottom-left-radius:4px}
+.msg.admin{background:#007bff;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-input{display:flex;gap:8px}
+.chat-input input{flex:1;padding:10px 14px;border:1px solid #ccc;border-radius:22px;outline:none;font-size:14px}
+.chat-input button{background:#007bff;color:#fff;border:none;border-radius:50%;width:42px;height:42px;cursor:pointer;font-size:16px}
+
+.cat-quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cat-quick .chip{font-size:12px;padding:5px 11px}
+.inline-add{display:flex;gap:8px;margin-top:12px}
+.inline-add input{flex:1;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px;outline:none;min-width:0}
+.note-box{background:#fff8e1;border:1px solid #ffe082;color:#7a5b00;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.7;text-align:left;margin-top:12px}
+.set-box{background:#fff;border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:0 4px 12px rgba(20,40,80,.07);border:1px solid #eef1f5}
+.set-box h3{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;align-items:flex-end;justify-content:center}
+.modal.show{display:flex}
+.modal-box{background:#fff;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:18px}
+.modal-box h3{margin-bottom:12px}
+.img-pick{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.img-pick img{width:70px;height:70px;object-fit:cover;border-radius:10px;background:#eaeaea;border:1px solid #ddd}
+
+.bottom-nav{background:#fff;display:flex;justify-content:space-around;padding:9px 0 calc(9px + env(safe-area-inset-bottom));box-shadow:0 -2px 10px rgba(0,0,0,.1);z-index:1000;border-top:1px solid #eef1f5}
+.nav-item{display:flex;flex-direction:column;align-items:center;color:#757575;font-size:11px;cursor:pointer;flex:1;position:relative}
+.nav-item i{font-size:20px;margin-bottom:4px}
+.nav-item.active{color:#007bff;font-weight:bold}
+.nav-item.active::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:30px;height:3px;border-radius:0 0 4px 4px;background:#007bff}
+.nbadge{position:absolute;top:-4px;right:18%;background:#dc3545;color:#fff;font-size:10px;font-weight:bold;border-radius:50%;min-width:16px;height:16px;padding:0 3px;display:flex;justify-content:center;align-items:center}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#222;color:#fff;padding:10px 18px;border-radius:25px;font-size:13px;opacity:0;pointer-events:none;transition:all .3s;z-index:6000;max-width:88%;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- লগইন -->
+<div class="login" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo"><i class="fa-solid fa-store"></i></div>
+    <h2 id="login-title">সেলার লগইন</h2>
+    <div class="sub">SRG Shopping Mall</div>
+    <div class="form-group"><label>ইমেইল</label><input type="email" id="loginEmail" placeholder="ইমেইল লিখুন" autocomplete="username"></div>
+    <div id="reg-wrap" style="display:none">
+      <div class="form-group"><label>দোকানের নাম</label><input type="text" id="rShop" maxlength="60" placeholder="দোকানের নাম"></div>
+      <div class="form-group"><label>মালিকের নাম</label><input type="text" id="rOwner" maxlength="60" placeholder="আপনার নাম"></div>
+      <div class="form-group"><label>ফোন নম্বর</label><input type="tel" id="rPhone" maxlength="20" placeholder="01XXXXXXXXX"></div>
+    </div>
+    <div class="form-group" id="pw-wrap"><label>পাসওয়ার্ড</label><input type="password" id="loginPw" placeholder="পাসওয়ার্ড লিখুন" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="form-group" id="login-confirm-wrap" style="display:none"><label>পাসওয়ার্ড আবার লিখুন</label><input type="password" id="loginPw2" placeholder="আবার লিখুন" autocomplete="new-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="login-err" id="login-err"></div>
+    <button class="btn block" id="login-btn" onclick="doLogin()" disabled>অপেক্ষা করুন…</button>
+    <div class="login-note" id="login-links" style="font-size:13px">
+      <a href="#" id="lnk-reg" onclick="setMode('register');return false" style="color:#0d6efd">নতুন সেলার নিবন্ধন</a>
+      <span id="lnk-sep"> · </span>
+      <a href="#" id="lnk-reset" onclick="setMode('reset');return false" style="color:#0d6efd">পাসওয়ার্ড ভুলে গেছেন?</a>
+      <a href="#" id="lnk-login" onclick="setMode('login');return false" style="color:#0d6efd;display:none">লগইনে ফিরুন</a>
+    </div>
+    <div class="login-note" id="reg-note" style="display:none">নিবন্ধনের পর সুপার অ্যাডমিনের অনুমোদন পেলে তবেই পণ্য তোলা ও অর্ডার সামলানো যাবে।</div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="header">
+    <div>
+      <div class="title"><i class="fa-solid fa-store"></i> <span id="shop-name">SRG Shopping Mall</span></div>
+      <div class="sub" id="shop-sub">অ্যাডমিন প্যানেল</div>
+    </div>
+    <div class="header-actions">
+      <span class="badge-admin"><i class="fa-solid fa-user-shield"></i> ADMIN</span>
+      <button class="hbtn" onclick="logout()" title="লগআউট"><i class="fa-solid fa-right-from-bracket"></i></button>
+    </div>
+  </div>
+
+  <div class="content-area" id="content-area">
+
+    <div id="dashboard" class="page active-page">
+      <h2 class="sec">সারসংক্ষেপ</h2>
+      <div class="stat-grid" id="stat-grid"></div>
+      <h2 class="sec"><i class="fa-solid fa-chart-pie" style="color:#007bff"></i> শেষ ৭ দিনের বিক্রি</h2>
+      <div class="box"><div class="chart" id="sales-chart"></div></div>
+      <h2 class="sec"><i class="fa-solid fa-fire" style="color:#ff5722"></i> সবচেয়ে বেশি বিক্রি</h2>
+      <div class="box" id="top-sell-box"></div>
+      <h2 class="sec"><i class="fa-solid fa-triangle-exclamation" style="color:#dc3545"></i> স্টক কম / শেষ</h2>
+      <div class="box" id="low-stock-box"></div>
+      <h2 class="sec"><i class="fa-solid fa-clipboard-list" style="color:#ff9800"></i> সাম্প্রতিক অর্ডার</h2>
+      <div class="box" id="recent-order-box"></div>
+    </div>
+
+    <div id="products" class="page">
+      <div class="toolbar">
+        <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="prodSearch" oninput="renderProducts()" placeholder="পণ্য খুঁজুন..."></div>
+        <button class="btn green" onclick="openProductForm()"><i class="fa-solid fa-plus"></i> নতুন</button>
+      </div>
+      <div class="chips" id="prod-chips"></div>
+      <div id="product-list"></div>
+    </div>
+
+    <div id="orders" class="page">
+      <div class="toolbar">
+        <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="orderSearch" oninput="renderOrders()" placeholder="অর্ডার নম্বর, নাম বা মোবাইল..."></div>
+      </div>
+      <div class="chips" id="order-chips"></div>
+      <div id="order-list"></div>
+    </div>
+
+    <div id="chat" class="page">
+      <div id="chat-list-view"></div>
+      <div id="chat-thread-view" style="display:none">
+        <button class="btn gray" onclick="closeThread()"><i class="fa-solid fa-arrow-left"></i> পিছনে</button>
+        <h2 class="sec" id="thread-name" style="margin-top:10px"></h2>
+        <div class="thread" id="thread-box"></div>
+        <div class="chat-input">
+          <input type="text" id="replyInput" placeholder="উত্তর লিখুন..." onkeydown="if(event.key==='Enter')sendReply()">
+          <button onclick="sendReply()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="settings" class="page">
+      <div class="set-box">
+        <h3><i class="fa-solid fa-tag" style="color:#6f42c1"></i> পণ্যের ক্যাটাগরি</h3>
+        <div class="muted" style="margin:-4px 0 8px">নতুন ক্যাটাগরি যোগ করতে পারবেন। মালিকের তৈরি মূল ক্যাটাগরি বদলানো বা মোছা যায় না।</div>
+        <div id="cat-manager"></div>
+        <div class="inline-add">
+          <input type="text" id="newCatName" maxlength="30" placeholder="নতুন ক্যাটাগরির নাম লিখুন" onkeydown="if(event.key==='Enter')addCategory()">
+          <button class="btn green" onclick="addCategory()"><i class="fa-solid fa-plus"></i> যোগ</button>
+        </div>
+      </div>
+      <div class="set-box">
+        <h3><i class="fa-solid fa-store" style="color:#007bff"></i> আমার দোকান</h3>
+        <div class="note-box" style="margin:0 0 12px">এই নাম ও ডেলিভারি চার্জ শুধু আপনার দোকানের। অন্য সেলারের দোকানে কোনো প্রভাব পড়ে না। মার্কেটের নাম: <b id="marketNameView"></b> (শুধু মালিক বদলাতে পারেন)।</div>
+        <div class="form-group"><label>দোকানের নাম</label><input type="text" id="setShopName" maxlength="60"></div>
+        <div class="two">
+          <div class="form-group"><label>ঢাকায় ডেলিভারি চার্জ (৳)</label><input type="number" min="0" id="setDhaka"></div>
+          <div class="form-group"><label>ঢাকার বাইরে (৳)</label><input type="number" min="0" id="setOutside"></div>
+        </div>
+        <button class="btn block" onclick="saveSettings()">সেভ করুন</button>
+      </div>
+      <div class="set-box">
+        <h3><i class="fa-solid fa-lock" style="color:#ff5722"></i> পাসওয়ার্ড বদলান</h3>
+        <div class="form-group"><label>বর্তমান পাসওয়ার্ড</label><input type="password" id="pwOld"></div>
+        <div class="form-group"><label>নতুন পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label><input type="password" id="pwNew"></div>
+        <button class="btn orange block" onclick="changePassword()">পাসওয়ার্ড বদলান</button>
+      </div>
+      <div class="set-box">
+        <h3><i class="fa-solid fa-download" style="color:#28a745"></i> ব্যাকআপ ও ডেটা</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn green" onclick="exportData()"><i class="fa-solid fa-download"></i> ব্যাকআপ ডাউনলোড</button>
+          <label class="btn gray" style="margin:0"><i class="fa-solid fa-plus"></i> ব্যাকআপ রিস্টোর<input type="file" accept="application/json,.json" style="display:none" onchange="importData(this)"></label>
+          <button class="btn red" onclick="resetData()"><i class="fa-solid fa-rotate-left"></i> সব রিসেট</button>
+        </div>
+        <div class="note-box">রিসেট করলে সব পণ্য, অর্ডার ও চ্যাট মুছে প্রথম অবস্থায় ফিরে যাবে। আগে ব্যাকআপ নিয়ে রাখুন।</div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard')"><i class="fa-solid fa-chart-pie"></i><span>ড্যাশবোর্ড</span></div>
+    <div class="nav-item" data-page="products" onclick="switchPage('products')"><i class="fa-solid fa-box"></i><span>পণ্য</span></div>
+    <div class="nav-item" data-page="orders" onclick="switchPage('orders')"><i class="fa-solid fa-clipboard-list"></i><span>অর্ডার</span><span class="nbadge" id="order-badge" style="display:none"></span></div>
+    <div class="nav-item" data-page="chat" onclick="switchPage('chat')"><i class="fa-regular fa-comment-dots"></i><span>চ্যাট</span><span class="nbadge" id="chat-badge" style="display:none"></span></div>
+    <div class="nav-item" data-page="settings" onclick="switchPage('settings')"><i class="fa-solid fa-gear"></i><span>সেটিংস</span></div>
+  </nav>
+</div>
+
+<!-- পণ্য যোগ/এডিট -->
+<div class="modal" id="product-modal" onclick="if(event.target===this)closeProductForm()">
+  <div class="modal-box">
+    <h3 id="modal-title">নতুন পণ্য যোগ করুন</h3>
+    <input type="hidden" id="pId">
+    <div class="form-group"><label>পণ্যের নাম</label><input type="text" id="pName" placeholder="উদা: ওয়্যারলেস মাউস"></div>
+    <div class="form-group"><label>ক্যাটাগরি (নিজে লিখুন বা নিচের তালিকা থেকে বাছুন)</label>
+      <input type="text" id="pCat" maxlength="30" placeholder="উদা: জুতা, কাপড়, কসমেটিক্স..." autocomplete="off" oninput="renderCatQuick()">
+      <div class="cat-quick" id="catQuick"></div>
+    </div>
+    <div class="two">
+      <div class="form-group"><label>বিক্রয় মূল্য (৳)</label><input type="number" min="0" id="pPrice" placeholder="1200"></div>
+      <div class="form-group"><label>আগের দাম (৳) – ঐচ্ছিক</label><input type="number" min="0" id="pOld" placeholder="1500"></div>
+    </div>
+    <div class="form-group"><label>স্টক (সংখ্যা)</label><input type="number" min="0" id="pStock" placeholder="20"></div>
+    <div class="form-group">
+      <label>মূল ছবি</label>
+      <div class="img-pick">
+        <img id="pPreview" alt="">
+        <div style="flex:1">
+          <input type="url" id="pImg" placeholder="ছবির লিংক (https://...)" oninput="previewFromUrl()">
+          <div style="font-size:11px;color:#8a94a6;margin-top:4px">শুধু ছবির লিংক (URL) দিন। ছবি অ্যাপে সেভ হয় না, তাই জায়গা খরচ হয় না।</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group"><label>অতিরিক্ত ছবির লিংক (কমা দিয়ে আলাদা করুন) – ঐচ্ছিক</label><input type="text" id="pExtra" placeholder="https://..., https://..."></div>
+    <div class="form-group"><label>বিবরণ</label><textarea id="pDesc" rows="3" placeholder="পণ্যের বিবরণ লিখুন"></textarea></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn gray block" onclick="closeProductForm()">বাতিল</button>
+      <button class="btn green block" onclick="saveProduct()">সেভ করুন</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= আইকন: ইন্টারনেট বা ফন্ট ছাড়াই চলে ================= */
+const ICONS = {
+ "magnifying-glass":"<circle cx='11' cy='11' r='7'/><path d='m21 21-4.3-4.3'/>",
+ "comment-dots":"<path d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/><path d='M8 10h.01M12 10h.01M16 10h.01'/>",
+ "laptop":"<rect x='3' y='4' width='18' height='12' rx='2'/><path d='M2 20h20'/>",
+ "mobile-screen":"<rect x='6' y='2' width='12' height='20' rx='2'/><path d='M11 18h2'/>",
+ "clock":"<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/>",
+ "camera":"<path d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'/><circle cx='12' cy='13' r='4'/>",
+ "microchip":"<rect x='5' y='5' width='14' height='14' rx='2'/><rect x='9' y='9' width='6' height='6'/><path d='M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3'/>",
+ "house":"<path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.5V21h14V9.5'/><path d='M10 21v-6h4v6'/>",
+ "cart-shopping":"<circle cx='9' cy='20' r='1.5'/><circle cx='18' cy='20' r='1.5'/><path d='M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.5L21.5 8H6'/>",
+ "cart-plus":"<circle cx='9' cy='20' r='1.5'/><circle cx='18' cy='20' r='1.5'/><path d='M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.5L21.5 8H6'/><path d='M13.5 9.5v4M11.5 11.5h4'/>",
+ "fire":"<path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'/>",
+ "circle-user":"<circle cx='12' cy='12' r='10'/><circle cx='12' cy='10' r='3'/><path d='M6.2 19a6 6 0 0 1 11.6 0'/>",
+ "user":"<circle cx='12' cy='8' r='4'/><path d='M4 21a8 8 0 0 1 16 0'/>",
+ "user-shield":"<path d='M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z'/><path d='m9 12 2 2 4-4'/>",
+ "xmark":"<path d='M18 6 6 18M6 6l12 12'/>",
+ "paper-plane":"<path d='m22 2-7 20-4-9-9-4z'/><path d='M22 2 11 13'/>",
+ "circle-check":"<circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-6'/>",
+ "box-open":"<path d='M21 8 12 3 3 8v8l9 5 9-5z'/><path d='m3 8 9 5 9-5M12 13v8'/>",
+ "box":"<path d='M21 8 12 3 3 8v8l9 5 9-5z'/><path d='m3 8 9 5 9-5M12 13v8'/>",
+ "face-frown":"<circle cx='12' cy='12' r='10'/><path d='M16 16s-1.5-2-4-2-4 2-4 2M9 9h.01M15 9h.01'/>",
+ "trash-can":"<path d='M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6'/>",
+ "arrow-left":"<path d='M19 12H5M12 19l-7-7 7-7'/>",
+ "pen":"<path d='M12 20h9'/><path d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z'/>",
+ "pen-to-square":"<path d='M12 20h9'/><path d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z'/>",
+ "phone":"<path d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z'/>",
+ "location-dot":"<path d='M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z'/><circle cx='12' cy='10' r='3'/>",
+ "clock-rotate-left":"<path d='M3 12a9 9 0 1 0 3-6.7L3 8'/><path d='M3 3v5h5M12 7v5l3 2'/>",
+ "chevron-right":"<path d='m9 18 6-6-6-6'/>",
+ "clipboard-list":"<rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 12h6M9 16h6'/>",
+ "chart-pie":"<path d='M21.2 15.9A10 10 0 1 1 8 2.8'/><path d='M22 12A10 10 0 0 0 12 2v10z'/>",
+ "plus":"<path d='M12 5v14M5 12h14'/>",
+ "bag-shopping":"<path d='M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z'/><path d='M3 6h18M16 10a4 4 0 0 1-8 0'/>",
+ "triangle-exclamation":"<path d='M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z'/><path d='M12 9v4M12 17h.01'/>",
+ "sack-dollar":"<path d='M9 3h6l-1.5 3h-3z'/><path d='M8 8c-3 2-5 5-5 8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5c0-3-2-6-5-8'/><path d='M12 11v7M14.5 12.5h-3.2a1.5 1.5 0 0 0 0 3h1.4a1.5 1.5 0 0 1 0 3H9.5'/>",
+ "hourglass-half":"<path d='M6 2h12M6 22h12M7 2v4a5 5 0 0 0 2 4l3 2-3 2a5 5 0 0 0-2 4v4M17 2v4a5 5 0 0 1-2 4l-3 2 3 2a5 5 0 0 1 2 4v4'/>",
+ "lock":"<rect x='4' y='11' width='16' height='10' rx='2'/><path d='M8 11V7a4 4 0 0 1 8 0v4'/>",
+ "gear":"<circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z'/>",
+ "right-from-bracket":"<path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9'/>",
+ "download":"<path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3'/>",
+ "truck":"<rect x='1' y='3' width='15' height='13'/><path d='M16 8h4l3 3v5h-7z'/><circle cx='5.5' cy='18.5' r='2.5'/><circle cx='18.5' cy='18.5' r='2.5'/>",
+ "image":"<rect x='3' y='3' width='18' height='18' rx='2'/><circle cx='8.5' cy='8.5' r='1.5'/><path d='m21 15-5-5L5 21'/>",
+ "check":"<path d='M20 6 9 17l-5-5'/>",
+ "rotate-left":"<path d='M1 4v6h6'/><path d='M3.5 15a9 9 0 1 0 2.1-9.4L1 10'/>",
+ "store":"<path d='M3 9l1-5h16l1 5'/><path d='M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0'/><path d='M5 12v9h14v-9'/>",
+ "tag":"<path d='M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z'/><circle cx='7' cy='7' r='1.5'/>",
+ "ban":"<circle cx='12' cy='12' r='10'/><path d='m4.9 4.9 14.2 14.2'/>"
+};
+const ICON_SKIP = ['fa-solid','fa-regular','fa-brands','fa-fw'];
+function hydrateIcon(el){
+  if(el.getAttribute('data-ic')) return;
+  const cls = Array.from(el.classList).find(c => c.indexOf('fa-') === 0 && ICON_SKIP.indexOf(c) < 0);
+  const key = cls ? cls.slice(3) : '';
+  el.setAttribute('data-ic', '1');
+  el.innerHTML = "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'>" + (ICONS[key] || "<circle cx='12' cy='12' r='2'/>") + "</svg>";
+}
+function hydrateIcons(root){
+  if(root.nodeType !== 1 && root.nodeType !== 9) return;
+  if(root.nodeType === 1 && root.matches('i[class*="fa-"]')) hydrateIcon(root);
+  root.querySelectorAll('i[class*="fa-"]').forEach(hydrateIcon);
+}
+hydrateIcons(document);
+new MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(hydrateIcons))).observe(document.documentElement, {childList:true, subtree:true});
+</script>
+
+<script>
+/* ================= ডেটা লেয়ার =================
+   এই অংশটাই পরে Firebase দিয়ে বদলানো হবে। বাকি অ্যাপের কোড একই থাকবে।
+   এখন ডেটা ব্রাউজারের localStorage-এ থাকে (ইউজার অ্যাপের সাথে একই সাইটে খুললে শেয়ার হয়)। */
+const DB_KEY = 'srg_db_v1';
+const MEMKV = {};
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function read(key, fallback){
+  try{ const r = localStorage.getItem(key); if(r !== null) return JSON.parse(r); }catch(e){}
+  return (key in MEMKV) ? clone(MEMKV[key]) : fallback;
+}
+function write(key, val){
+  MEMKV[key] = clone(val);
+  try{ localStorage.setItem(key, JSON.stringify(val)); return true; }
+  catch(e){ return !(e && (e.name === 'QuotaExceededError' || e.code === 22)); }
+}
+
+function catName(id){ const c = (DB.categories || []).find(x => x.id === id); return c ? c.name : 'অন্যান্য'; }
+function catIcon(id){ const c = (DB.categories || []).find(x => x.id === id); return (c && ICONS[c.icon]) ? c.icon : 'tag'; }
+function ensureCategory(db, name){
+  const n = String(name).trim();
+  let c = db.categories.find(x => x.name.toLowerCase() === n.toLowerCase());
+  if(!c){
+    c = {id:'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), name:n, icon:'tag', owner:'seller'};
+    db.categories.push(c);
+  }
+  return c.id;
+}
+const STATUS = {pending:'অপেক্ষমাণ', shipped:'শিপড', delivered:'ডেলিভারড', cancelled:'বাতিল'};
+
+const SEED = {
+  settings: {marketName:'SRG Shopping Mall'},
+  account: {shopName:'SRG Shopping Mall', deliveryDhaka:60, deliveryOutside:120},
+  categories: [
+    {id:'gadgets', name:'গ্যাজেটস', icon:'laptop', owner:'super'},
+    {id:'mobile', name:'মোবাইল', icon:'mobile-screen', owner:'super'},
+    {id:'watch', name:'ঘড়ি', icon:'clock', owner:'super'},
+    {id:'camera', name:'ক্যামেরা', icon:'camera', owner:'super'},
+    {id:'others', name:'অন্যান্য', icon:'microchip', owner:'super'}
+  ],
+  nextProductId: 8, nextOrderId: 1001,
+  products: [
+    {id:1, name:'ওয়্যারলেস কীবোর্ড', price:1200, oldPrice:1500, cat:'gadgets', stock:25, sold:0,
+     img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400',
+     images:['https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400','https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400','https://images.unsplash.com/photo-1595225476474-87563907a212?w=400'],
+     desc:'এটি একটি high-speed মাল্টিমিডিয়া ওয়্যারলেস কীবোর্ড। লং-ব্যাটারি ব্যাকআপ এবং টাইপিং করার জন্য খুবই আরামদায়ক ও স্মুথ।'},
+    {id:2, name:'স্মার্ট ওয়াচ', price:2500, oldPrice:2900, cat:'watch', stock:8, sold:0,
+     img:'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400',
+     images:['https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=400','https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=400','https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400'],
+     desc:'রিয়েল-টাইম হার্ট রেট ট্র্যাকিং, স্লিপ মনিটরিং এবং ফুল টাচ অ্যামোলেড ডিসপ্লে সমৃদ্ধ একটি প্রিমিয়াম ক্যাটাগরির স্মার্ট ওয়াচ।'},
+    {id:3, name:'গেমিং স্মার্টফোন', price:35000, oldPrice:39000, cat:'mobile', stock:4, sold:0,
+     img:'https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=400', images:[],
+     desc:'উচ্চ ক্ষমতাসম্পন্ন প্রসেসর এবং কুলিং সিস্টেম সহ গেমারদের জন্য সেরা চয়েস। ল্যাগ ছাড়া পাবজি এবং ফ্রি ফায়ার খেলা যাবে।'},
+    {id:4, name:'ওয়্যারলেস হেডফোন', price:4500, oldPrice:null, cat:'gadgets', stock:15, sold:0,
+     img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400', images:[],
+     desc:'ক্রিস্টাল ক্লিয়ার সাউন্ড এবং চমৎকার বেজ কোয়ালিটি। এতে আছে একটিভ নয়েজ ক্যান্সেলেশন ফিচার যা বাইরের শব্দ আটকে দেয়।'},
+    {id:5, name:'ডিএসএলআর ক্যামেরা', price:65000, oldPrice:null, cat:'camera', stock:3, sold:0,
+     img:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400', images:[],
+     desc:'৪কে আল্ট্রা এইচডি ভিডিও এবং ক্রিস্প ফোটোগ্রাফির জন্য সেরা ২৪ মেগাপিক্সেল প্রিমিয়াম মিররলেস ডিএসএলআর ক্যামেরা।'},
+    {id:6, name:'৪কে কোয়াডকপ্টার ড্রোন', price:45000, oldPrice:null, cat:'others', stock:6, sold:0,
+     img:'https://images.unsplash.com/photo-1504890001746-a9a68eda46e2?w=400', images:[],
+     desc:'জিপিএস অ্যাসিস্টেড স্ট্যাবল ফ্লাইট কন্ট্রোল এবং ২ কিমি রেঞ্জ সমৃদ্ধ শক্তিশালী সিনেমাটিক ৪কে কোয়াডকপ্টার ড্রোন।'},
+    {id:7, name:'কোর আই ৭ ল্যাপটপ', price:75000, oldPrice:null, cat:'gadgets', stock:5, sold:0,
+     img:'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400', images:[],
+     desc:'১৬ জিবি র‍্যাম এবং ৫১২ জিবি এসএসডি সমৃদ্ধ আল্ট্রাফাস্ট ল্যাপটপ। হেভি কোডিং, গ্রাফিক্স ডিজাইন এবং ভিডিও এডিটিংয়ের জন্য দারুণ।'}
+  ],
+  orders: [],
+  chats: []
+};
+let DB = dbLoad();
+function migrate(d){
+  /* পুরনো ডেটা নতুন কাঠামোতে আনে: settings = মার্কেটের (মালিকের), account = সেলারের নিজের দোকান */
+  const st = d.settings || {};
+  if(!d.account){
+    d.account = {shopName: st.shopName || 'SRG Shopping Mall',
+      deliveryDhaka: st.deliveryDhaka != null ? st.deliveryDhaka : 60,
+      deliveryOutside: st.deliveryOutside != null ? st.deliveryOutside : 120};
+  }
+  d.settings = {marketName: st.marketName || 'SRG Shopping Mall'};
+  const core = ['gadgets', 'mobile', 'watch', 'camera', 'others'];
+  (d.categories || []).forEach(c => { if(!c.owner) c.owner = core.indexOf(c.id) >= 0 ? 'super' : 'seller'; });
+  return d;
+}
+function dbLoad(){
+  const d = read(DB_KEY, null);
+  if(!(d && d.products)) return clone(SEED);
+  if(!Array.isArray(d.categories) || !d.categories.length) d.categories = clone(SEED.categories);
+  return migrate(d);
+}
+function dbSave(){ return write(DB_KEY, DB); }
+function dbTx(fn){
+  const prev = JSON.stringify({p: DB.products, o: DB.orders, a: DB.account});
+  fn(DB);
+  if(typeof UID !== 'undefined' && UID && FB) syncOut(JSON.parse(prev));
+  return dbSave();
+}
+
+/* অর্ডারের স্ট্যাটাস বদলালে স্টক ও বিক্রির হিসাব ঠিক রাখে */
+function applyStatus(db, o, status){
+  const deduct = status === 'shipped' || status === 'delivered';
+  const sold = status === 'delivered';
+  o.items.forEach(l => {
+    const p = db.products.find(x => x.id === l.id);
+    if(!p) return;
+    if(deduct && !o.stockDeducted) p.stock = Math.max(0, (p.stock || 0) - l.qty);
+    if(!deduct && o.stockDeducted) p.stock = (p.stock || 0) + l.qty;
+    if(sold && !o.soldCounted) p.sold = (p.sold || 0) + l.qty;
+    if(!sold && o.soldCounted) p.sold = Math.max(0, (p.sold || 0) - l.qty);
+  });
+  o.stockDeducted = deduct;
+  o.soldCounted = sold;
+  o.status = status;
+}
+
+/* ================= হেল্পার ================= */
+const bn = n => Number(n).toLocaleString('bn-BD');
+const taka = n => '৳ ' + bn(n);
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmtDateTime(ts){
+  try{ return new Date(ts).toLocaleString('bn-BD', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}); }catch(e){ return ''; }
+}
+function fmtTime(ts){
+  try{ return new Date(ts).toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit'}); }catch(e){ return ''; }
+}
+let toastTimer;
+function quotaFix(m){ return /resource-exhausted|quota exceeded|quota-exceeded/i.test(String(m)) ? 'আজকের ফ্রি সীমা শেষ হয়েছে। কিছুক্ষণ পরে বা আগামীকাল আবার চেষ্টা করুন।' : m; }
+function showToast(msg){
+    msg = quotaFix(msg);
+  const t = document.getElementById('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+function persist(ok){ if(ok === false) showToast('স্টোরেজ ভরে গেছে! ছোট ছবি ব্যবহার করুন বা পুরনো পণ্য মুছুন।'); }
+
+const PH_COL = {gadgets:['#4facfe','#00c6ff'], mobile:['#a18cd1','#6a82fb'], watch:['#f6d365','#fda085'], camera:['#43e97b','#38b6a8'], others:['#667eea','#764ba2']};
+function hashCol(s){ let h = 0; for(let i = 0; i < s.length; i++){ h = (h * 31 + s.charCodeAt(i)) | 0; } const a = Math.abs(h) % 360; return ['hsl(' + a + ',70%,62%)', 'hsl(' + ((a + 45) % 360) + ',70%,48%)']; }
+function placeholderImg(cat){
+  const c = PH_COL[cat] || hashCol(String(cat));
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + c[0] + '"/><stop offset="1" stop-color="' + c[1] + '"/></linearGradient></defs><rect width="120" height="120" fill="url(#g)"/><g transform="translate(34 34) scale(2.2)" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[catIcon(cat)] || '') + '</g></svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+function imgFail(img, cat){ img.onerror = null; img.src = placeholderImg(cat); }
+
+/* ================= Firebase লগইন ও ডেটা সিঙ্ক ================= */
+const FBCFG = { apiKey:'AIzaSyA01-AE4-Y0cbHdiYa0Z1Xvxf2d2VWUSUQ', authDomain:'srg-mall.firebaseapp.com', projectId:'srg-mall', appId:'1:792295582646:web:b44ead5c349f9560f8af17' };
+let FB = null, UID = null, unsubs = [], seenTimer = null, authMode = 'login', registering = false, authBusy = false;
+const AUTH_MSG = {
+  'auth/invalid-credential':'ইমেইল বা পাসওয়ার্ড ভুল', 'auth/wrong-password':'পাসওয়ার্ড ভুল', 'auth/user-not-found':'এই ইমেইলে কোনো অ্যাকাউন্ট নেই',
+  'auth/invalid-email':'ইমেইলের ফরম্যাট ঠিক নয়', 'auth/email-already-in-use':'এই ইমেইলে আগেই নিবন্ধন করা আছে', 'auth/weak-password':'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন',
+  'auth/too-many-requests':'অনেকবার চেষ্টা হয়েছে, কিছুক্ষণ পরে আবার চেষ্টা করুন', 'auth/quota-exceeded':'এখন অনেক অনুরোধ হচ্ছে, কিছুক্ষণ পরে চেষ্টা করুন',
+  'auth/network-request-failed':'ইন্টারনেট সংযোগে সমস্যা', 'auth/requires-recent-login':'আবার লগইন করে চেষ্টা করুন',
+  'resource-exhausted':'আজকের ফ্রি সীমা শেষ হয়েছে। কিছুক্ষণ পরে বা আগামীকাল আবার চেষ্টা করুন।',
+  'permission-denied':'অনুমতি নেই (অ্যাকাউন্ট অনুমোদিত কি না দেখুন)'
+};
+function authMsg(e){ const c = (e && e.code) || ''; return AUTH_MSG[c] || ((e && e.message) || 'কিছু একটা সমস্যা হয়েছে') + (c ? ' [' + c + ']' : ''); }
+function withTimeout(pr, ms){ return Promise.race([pr, new Promise((_, rej) => setTimeout(() => rej(new Error('সার্ভারের সাথে যোগাযোগ হচ্ছে না। ইন্টারনেট দেখে আবার চেষ্টা করুন')), ms))]); }
+async function fbInit(){
+  if(FB) return FB;
+  const base = 'https://www.gstatic.com/firebasejs/10.14.1/';
+  const [A, F, Au] = await Promise.all([import(base + 'firebase-app.js'), import(base + 'firebase-firestore.js'), import(base + 'firebase-auth.js')]);
+  const app = A.initializeApp(FBCFG);
+  const db = F.initializeFirestore(app, {experimentalForceLongPolling: true});
+  const auth = /^https?:$/.test(location.protocol) ? Au.getAuth(app) : Au.initializeAuth(app, {persistence: Au.inMemoryPersistence});
+  FB = {F, Au, db, auth};
+  return FB;
+}
+function $id(i){ return document.getElementById(i); }
+function loginErr(m, ok){ const el = $id('login-err'); el.innerText = m || ''; el.style.color = ok ? '#198754' : ''; }
+function setMode(m){
+  authMode = m; loginErr('');
+  const reg = m === 'register', rst = m === 'reset';
+  $id('login-title').innerText = reg ? 'নতুন সেলার নিবন্ধন' : rst ? 'পাসওয়ার্ড রিসেট' : 'সেলার লগইন';
+  $id('reg-wrap').style.display = reg ? 'block' : 'none';
+  $id('pw-wrap').style.display = rst ? 'none' : 'block';
+  $id('login-confirm-wrap').style.display = reg ? 'block' : 'none';
+  $id('reg-note').style.display = reg ? 'block' : 'none';
+  $id('login-btn').innerText = reg ? 'নিবন্ধন করুন' : rst ? 'রিসেট লিংক পাঠান' : 'লগইন করুন';
+  $id('lnk-reg').style.display = m === 'login' ? '' : 'none';
+  $id('lnk-sep').style.display = m === 'login' ? '' : 'none';
+  $id('lnk-reset').style.display = m === 'login' ? '' : 'none';
+  $id('lnk-login').style.display = m === 'login' ? 'none' : '';
+}
+function showLogin(msg){
+  $id('login-screen').style.display = 'flex';
+  $id('app').style.display = 'none';
+  if(msg) loginErr(msg);
+}
+function authInit(){
+  setMode('login'); showLogin();
+  fbInit().then(({Au, auth}) => {
+    $id('login-btn').disabled = false; setMode(authMode);
+    Au.onAuthStateChanged(auth, u => { if(registering) return; afterAuth(u); });
+  }).catch(e => loginErr('Firebase চালু করা যায়নি: ' + authMsg(e)));
+}
+async function doLogin(){
+  if(authBusy || !FB) return;
+  const {F, Au, db, auth} = FB;
+  const email = $id('loginEmail').value.trim(), pw = $id('loginPw').value;
+  loginErr('');
+  if(!email){ loginErr('ইমেইল দিন'); return; }
+  const btn = $id('login-btn'), label = btn.innerText;
+  const done = () => { authBusy = false; btn.disabled = false; btn.innerText = label; };
+  try{
+    if(authMode === 'reset'){
+      authBusy = true; btn.disabled = true; btn.innerText = 'অপেক্ষা করুন…';
+      await withTimeout(Au.sendPasswordResetEmail(auth, email), 25000);
+      loginErr('রিসেট লিংক পাঠানো হয়েছে। ইমেইল (স্প্যাম ফোল্ডারসহ) দেখুন।', true);
+    }else if(authMode === 'register'){
+      const shop = $id('rShop').value.trim(), owner = $id('rOwner').value.trim(), phone = $id('rPhone').value.trim();
+      if(!shop){ loginErr('দোকানের নাম দিন'); return; }
+      if(!owner){ loginErr('মালিকের নাম দিন'); return; }
+      if(phone.replace(/\D/g, '').length < 10){ loginErr('সঠিক ফোন নম্বর দিন'); return; }
+      if(pw.length < 6){ loginErr('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে'); return; }
+      if(pw !== $id('loginPw2').value){ loginErr('দুটো পাসওয়ার্ড মিলছে না'); return; }
+      authBusy = true; btn.disabled = true; btn.innerText = 'অপেক্ষা করুন…';
+      registering = true;
+      const cred = await withTimeout(Au.createUserWithEmailAndPassword(auth, email, pw), 25000);
+      try{
+        await withTimeout(F.setDoc(F.doc(db, 'accounts', cred.user.uid), {role:'seller', status:'pending', canSellProducts:false, canProcessOrders:false,
+          email, shopName: shop.slice(0, 60), ownerName: owner.slice(0, 60), phone: phone.slice(0, 20), deliveryDhaka:60, deliveryOutside:120,
+          createdAt: Date.now(), updatedAt: Date.now(), lastSeenAt: 0}), 25000);
+      }catch(e2){ await Au.signOut(auth).catch(() => {}); throw e2; }
+      await Au.signOut(auth);
+      setMode('login');
+      loginErr('নিবন্ধন সম্পন্ন! সুপার অ্যাডমিনের অনুমোদনের পর লগইন করতে পারবেন।', true);
+    }else{
+      if(!pw){ loginErr('পাসওয়ার্ড দিন'); return; }
+      authBusy = true; btn.disabled = true; btn.innerText = 'অপেক্ষা করুন…';
+      await withTimeout(Au.signInWithEmailAndPassword(auth, email, pw), 25000);
+    }
+  }catch(e){ console.error('auth error', e); loginErr(authMsg(e)); }
+  finally{ registering = false; done(); }
+}
+async function afterAuth(user){
+  if(!user){ showLogin(); return; }
+  const {F, Au, db, auth} = FB;
+  try{
+    const snap = await withTimeout(F.getDoc(F.doc(db, 'accounts', user.uid)), 20000);
+    const a = snap.exists() ? snap.data() : null;
+    if(!a || a.role !== 'seller'){ await Au.signOut(auth); showLogin('এই ইমেইলে সেলার অ্যাকাউন্ট নেই'); return; }
+    if(a.status !== 'active'){ await Au.signOut(auth); showLogin(statusMsg(a)); return; }
+    UID = user.uid;
+    DB.account = Object.assign({}, DB.account, pickAccount(a));
+    DB.products = []; DB.orders = [];
+    enterApp(); startSync();
+  }catch(e){ console.error('afterAuth', e); loginErr(authMsg(e)); }
+}
+function pickAccount(a){ return {shopName: a.shopName || '', ownerName: a.ownerName || '', phone: a.phone || '', deliveryDhaka: a.deliveryDhaka != null ? a.deliveryDhaka : 60, deliveryOutside: a.deliveryOutside != null ? a.deliveryOutside : 120}; }
+function statusMsg(a){
+  const why = a.statusReason ? ' কারণ: ' + a.statusReason : '';
+  if(a.status === 'pending') return 'আপনার অ্যাকাউন্ট অনুমোদনের অপেক্ষায় আছে। অনুমোদন হলে লগইন করতে পারবেন।';
+  if(a.status === 'suspended') return 'আপনার অ্যাকাউন্ট সাময়িকভাবে স্থগিত।' + why;
+  if(a.status === 'revoked') return 'আপনার অ্যাকাউন্ট বাতিল করা হয়েছে।' + why;
+  return 'অ্যাকাউন্ট চালু নেই';
+}
+function enterApp(){
+  $id('login-screen').style.display = 'none';
+  $id('app').style.display = 'flex';
+  applyShopName();
+  switchPage('dashboard');
+  updateBadges();
+}
+function refreshView(){
+  if($id('app').style.display !== 'flex') return;
+  if(!$id('product-modal').classList.contains('show') && currentPage !== 'settings') renderCurrent();
+  updateBadges();
+}
+function stopSync(){ unsubs.forEach(u => { try{ u(); }catch(e){} }); unsubs = []; if(seenTimer){ clearInterval(seenTimer); seenTimer = null; } }
+function startSync(){
+  stopSync();
+  const {F, Au, db, auth} = FB;
+  const bad = e => showToast('ডেটা পড়া যায়নি: ' + (e.code || e.message));
+  unsubs.push(F.onSnapshot(F.query(F.collection(db, 'products'), F.where('sellerId', '==', UID)), s => {
+    DB.products = s.docs.map(d => d.data()); refreshView();
+  }, bad));
+  unsubs.push(F.onSnapshot(F.query(F.collection(db, 'orders'), F.where('sellerId', '==', UID)), s => {
+    DB.orders = s.docs.map(d => d.data()).sort((x, y) => (y.id || 0) - (x.id || 0)); refreshView();
+  }, bad));
+  unsubs.push(F.onSnapshot(F.doc(db, 'accounts', UID), s => {
+    const a = s.data(); if(!a) return;
+    if(a.status !== 'active'){ const m = statusMsg(a); stopSync(); UID = null; Au.signOut(auth).then(() => showLogin(m)); return; }
+    DB.account = Object.assign({}, DB.account, pickAccount(a)); applyShopName();
+  }, bad));
+  const touch = () => F.updateDoc(F.doc(db, 'accounts', UID), {lastSeenAt: Date.now()}).catch(() => {});
+  touch(); seenTimer = setInterval(touch, 120000);
+  pubShop();
+}
+function logout(){
+  stopSync(); UID = null;
+  if(FB) FB.Au.signOut(FB.auth).catch(() => {});
+  setMode('login'); loginErr(''); showLogin();
+}
+function plain(o){ return JSON.parse(JSON.stringify(o)); }
+function pubShop(){
+  if(!FB || !UID) return;
+  const {F, db} = FB;
+  F.setDoc(F.doc(db, 'shops', UID), {shopName: DB.account.shopName || '', deliveryDhaka: Number(DB.account.deliveryDhaka), deliveryOutside: Number(DB.account.deliveryOutside), updatedAt: Date.now()}).catch(() => {});
+}
+function syncOut(prev){
+  const {F, db} = FB;
+  const fail = e => showToast('সেভ হয়নি: ' + (AUTH_MSG[e.code] || e.code || e.message));
+  const pp = {}; (prev.p || []).forEach(p => { pp[p.id] = JSON.stringify(p); });
+  const now = {};
+  DB.products.forEach(p => {
+    now[p.id] = 1;
+    if(pp[p.id] !== JSON.stringify(p)) F.setDoc(F.doc(db, 'products', String(p.id)), Object.assign(plain(p), {sellerId: UID, sellerActive: true})).catch(fail);
+  });
+  Object.keys(pp).forEach(id => { if(!now[id]) F.deleteDoc(F.doc(db, 'products', String(id))).catch(fail); });
+  const op = {}; (prev.o || []).forEach(o => { op[o.id] = JSON.stringify(o); });
+  DB.orders.forEach(o => { if(op[o.id] && op[o.id] !== JSON.stringify(o)) F.setDoc(F.doc(db, 'orders', String(o.id)), plain(o)).catch(fail); });
+  if(JSON.stringify(prev.a) !== JSON.stringify(DB.account)){
+    F.updateDoc(F.doc(db, 'accounts', UID), {shopName: DB.account.shopName, deliveryDhaka: DB.account.deliveryDhaka, deliveryOutside: DB.account.deliveryOutside, updatedAt: Date.now()}).catch(fail);
+    pubShop();
+  }
+}
+
+/* ================= পেজ পরিবর্তন ================= */
+let currentPage = 'dashboard';
+let orderFilter = 'all', prodFilter = 'all', currentChat = null;
+function switchPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === id));
+  document.getElementById(id).classList.add('active-page');
+  currentPage = id;
+  renderCurrent();
+  document.getElementById('content-area').scrollTop = 0;
+}
+function renderCurrent(){
+  if(currentPage === 'dashboard') renderDashboard();
+  else if(currentPage === 'products') renderProducts();
+  else if(currentPage === 'orders') renderOrders();
+  else if(currentPage === 'chat'){ if(currentChat) renderThread(); else renderChatList(); }
+  else if(currentPage === 'settings') fillSettings();
+  updateBadges();
+}
+function applyShopName(){
+  document.getElementById('shop-name').innerText = DB.settings.marketName || 'SRG Shopping Mall';
+  document.getElementById('shop-sub').innerText = 'অ্যাডমিন প্যানেল · ' + (DB.account.shopName || '');
+  document.title = (DB.account.shopName || 'SRG') + ' - Admin';
+}
+function updateBadges(){
+  const pending = DB.orders.filter(o => o.status === 'pending').length;
+  const unread = DB.chats.reduce((s,c) => s + (c.unread || 0), 0);
+  const ob = document.getElementById('order-badge'), cb = document.getElementById('chat-badge');
+  ob.style.display = pending ? 'flex' : 'none'; ob.innerText = bn(pending);
+  cb.style.display = unread ? 'flex' : 'none'; cb.innerText = bn(unread);
+}
+
+/* ================= ড্যাশবোর্ড ================= */
+function dayKey(ts){ const d = new Date(ts); return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate(); }
+function renderDashboard(){
+  const todayK = dayKey(Date.now());
+  const todayOrders = DB.orders.filter(o => dayKey(o.createdAt) === todayK).length;
+  const pending = DB.orders.filter(o => o.status === 'pending').length;
+  const revenue = DB.orders.filter(o => o.status === 'delivered').reduce((s,o) => s + o.total, 0);
+  const outCount = DB.products.filter(p => p.stock <= 0).length;
+  const cards = [
+    {icon:'fa-bag-shopping', color:'#007bff', num:bn(todayOrders), lbl:'আজকের অর্ডার'},
+    {icon:'fa-hourglass-half', color:'#ff9800', num:bn(pending), lbl:'অপেক্ষমাণ অর্ডার'},
+    {icon:'fa-sack-dollar', color:'#28a745', num:taka(revenue), lbl:'মোট আয় (ডেলিভারড)'},
+    {icon:'fa-box', color:'#6f42c1', num:bn(DB.products.length), lbl:'মোট পণ্য'},
+    {icon:'fa-clipboard-list', color:'#17a2b8', num:bn(DB.orders.length), lbl:'মোট অর্ডার'},
+    {icon:'fa-ban', color:'#dc3545', num:bn(outCount), lbl:'স্টক শেষ'}
+  ];
+  document.getElementById('stat-grid').innerHTML = cards.map(c =>
+    `<div class="stat-card"><div class="stat-icon" style="background:${c.color}"><i class="fa-solid ${c.icon}"></i></div>
+     <div><div class="num">${c.num}</div><div class="lbl">${c.lbl}</div></div></div>`).join('');
+
+  // শেষ ৭ দিনের বিক্রি (বাতিল বাদে)
+  const days = [], names = ['রবি','সোম','মঙ্গল','বুধ','বৃহঃ','শুক্র','শনি'];
+  for(let i = 6; i >= 0; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push({key:dayKey(d.getTime()), label:names[d.getDay()], sum:0}); }
+  DB.orders.filter(o => o.status !== 'cancelled').forEach(o => { const d = days.find(x => x.key === dayKey(o.createdAt)); if(d) d.sum += o.total; });
+  const max = Math.max(1, ...days.map(d => d.sum));
+  document.getElementById('sales-chart').innerHTML = days.map(d =>
+    `<div class="bar-col"><span class="bv">${d.sum ? bn(d.sum) : ''}</span><div class="bar" style="height:${Math.max(3, Math.round(d.sum / max * 80))}%"></div><small>${d.label}</small></div>`).join('');
+
+  const top = [...DB.products].filter(p => p.sold > 0).sort((a,b) => b.sold - a.sold).slice(0, 3);
+  document.getElementById('top-sell-box').innerHTML = top.length
+    ? top.map(p => `<div class="row"><span>${esc(p.name)}</span><span class="muted">${bn(p.sold)}টি বিক্রি</span></div>`).join('')
+    : '<div class="empty">ডেলিভারি হওয়া অর্ডার থেকে এখানে হিসাব আসবে</div>';
+
+  const low = DB.products.filter(p => p.stock <= 5).sort((a,b) => a.stock - b.stock);
+  document.getElementById('low-stock-box').innerHTML = low.length
+    ? low.map(p => `<div class="row"><span>${esc(p.name)}</span><span class="warn">${p.stock <= 0 ? 'স্টক শেষ' : bn(p.stock) + 'টি বাকি'}</span></div>`).join('')
+    : '<div class="empty">সব পণ্যের স্টক ঠিক আছে ✔</div>';
+
+  const recent = [...DB.orders].sort((a,b) => b.id - a.id).slice(0, 4);
+  document.getElementById('recent-order-box').innerHTML = recent.length
+    ? recent.map(o => `<div class="row"><span>#${bn(o.id)} ${esc(o.customer)}<br><span class="muted">${taka(o.total)}</span></span><span class="st st-${o.status}">${STATUS[o.status]}</span></div>`).join('')
+    : '<div class="empty"><i class="fa-solid fa-clipboard-list"></i>এখনো কোনো অর্ডার আসেনি</div>';
+}
+
+/* ================= পণ্য ম্যানেজমেন্ট ================= */
+function renderProducts(){
+  if(prodFilter !== 'all' && !DB.categories.some(c => c.id === prodFilter)) prodFilter = 'all';
+  const keys = ['all'].concat(DB.categories.map(c => c.id));
+  document.getElementById('prod-chips').innerHTML = keys.map(k =>
+    `<div class="chip ${prodFilter === k ? 'on' : ''}" onclick="setProdFilter('${esc(k)}')">${k === 'all' ? 'সব' : esc(catName(k))}</div>`).join('');
+  const q = document.getElementById('prodSearch').value.trim().toLowerCase();
+  const list = DB.products.filter(p => (prodFilter === 'all' || p.cat === prodFilter) && p.name.toLowerCase().includes(q));
+  const box = document.getElementById('product-list');
+  if(!list.length){ box.innerHTML = '<div class="empty"><i class="fa-solid fa-box-open"></i>কোনো পণ্য পাওয়া যায়নি</div>'; return; }
+  box.innerHTML = list.map(p => {
+    const st = p.stock <= 0 ? '<span class="tag out">স্টক শেষ</span>' : p.stock <= 5 ? `<span class="tag low">কম: ${bn(p.stock)}</span>` : `<span class="tag ok">স্টক: ${bn(p.stock)}</span>`;
+    return `
+    <div class="p-item">
+      <img src="${esc(p.img)}" alt="" onerror="imgFail(this,'${esc(p.cat)}')">
+      <div class="p-info">
+        <h3>${esc(p.name)}</h3>
+        <div class="price">${taka(p.price)} ${p.oldPrice && p.oldPrice > p.price ? `<span class="muted" style="text-decoration:line-through">${taka(p.oldPrice)}</span>` : ''}</div>
+        <div style="margin-top:4px">${st}<span class="tag cat">${esc(catName(p.cat))}</span><span class="muted">বিক্রি: ${bn(p.sold || 0)}</span></div>
+      </div>
+      <div class="p-actions">
+        <button class="icon-btn edit" onclick="openProductForm(${p.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button class="icon-btn del" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash-can"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function setProdFilter(k){ prodFilter = k; renderProducts(); }
+
+function openProductForm(id){
+  const p = id ? DB.products.find(x => x.id === id) : null;
+  document.getElementById('modal-title').innerText = p ? 'পণ্য এডিট করুন' : 'নতুন পণ্য যোগ করুন';
+  document.getElementById('pId').value = p ? p.id : '';
+  document.getElementById('pName').value = p ? p.name : '';
+  document.getElementById('pCat').value = p ? catName(p.cat) : '';
+  renderCatQuick();
+  document.getElementById('pPrice').value = p ? p.price : '';
+  document.getElementById('pOld').value = p && p.oldPrice ? p.oldPrice : '';
+  document.getElementById('pStock').value = p ? p.stock : '';
+  const isData = p && p.img && p.img.indexOf('data:') === 0;
+  document.getElementById('pImg').value = (p && !isData) ? p.img : '';
+  document.getElementById('pPreview').src = (p && p.img) ? p.img : placeholderImg(p ? p.cat : '__new');
+  if(isData) showToast('এই পণ্যের ছবি পুরনো পদ্ধতির। ছবির লিংক দিয়ে বদলে নিন');
+  document.getElementById('pExtra').value = p ? (p.images || []).filter(u => u.indexOf('data:') !== 0).join(', ') : '';
+  document.getElementById('pDesc').value = p ? p.desc : '';
+  document.getElementById('product-modal').classList.add('show');
+}
+function renderCatQuick(){
+  const cur = document.getElementById('pCat').value.trim().toLowerCase();
+  document.getElementById('catQuick').innerHTML = DB.categories.map((c, i) =>
+    `<div class="chip ${c.name.toLowerCase() === cur ? 'on' : ''}" onclick="pickCat(${i})">${esc(c.name)}</div>`).join('');
+}
+function pickCat(i){
+  const c = DB.categories[i];
+  if(c){ document.getElementById('pCat').value = c.name; renderCatQuick(); }
+}
+function closeProductForm(){ document.getElementById('product-modal').classList.remove('show'); }
+function isHttpUrl(u){
+  try{ const x = new URL(u); return x.protocol === 'https:' || x.protocol === 'http:'; }catch(e){ return false; }
+}
+function previewFromUrl(){
+  const u = document.getElementById('pImg').value.trim();
+  if(isHttpUrl(u)) document.getElementById('pPreview').src = u;
+}
+function saveProduct(){
+  const id = document.getElementById('pId').value;
+  const name = document.getElementById('pName').value.trim();
+  const catNameIn = document.getElementById('pCat').value.trim().slice(0, 30);
+  const price = parseInt(document.getElementById('pPrice').value, 10);
+  const oldRaw = document.getElementById('pOld').value.trim();
+  const oldPrice = oldRaw === '' ? null : parseInt(oldRaw, 10);
+  const stock = parseInt(document.getElementById('pStock').value, 10);
+  const img = document.getElementById('pImg').value.trim();
+  const images = document.getElementById('pExtra').value.split(',').map(s => s.trim()).filter(Boolean);
+  const desc = document.getElementById('pDesc').value.trim();
+
+  if(!name){ showToast('পণ্যের নাম দিন'); return; }
+  if(img && !isHttpUrl(img)){ showToast('ছবির লিংক সঠিক নয় (https:// দিয়ে শুরু হতে হবে)'); return; }
+  if(images.some(u => !isHttpUrl(u))){ showToast('অতিরিক্ত ছবির কোনো লিংক সঠিক নয়'); return; }
+  if(!catNameIn){ showToast('ক্যাটাগরি লিখুন বা তালিকা থেকে বাছুন'); return; }
+  if(isNaN(price) || price <= 0){ showToast('সঠিক দাম দিন'); return; }
+  if(isNaN(stock) || stock < 0){ showToast('সঠিক স্টক দিন'); return; }
+  if(oldPrice !== null && (isNaN(oldPrice) || oldPrice < 0)){ showToast('আগের দাম সঠিক নয়'); return; }
+
+  const ok = dbTx(db => {
+    const cat = ensureCategory(db, catNameIn);
+    if(id){
+      const p = db.products.find(x => x.id === Number(id));
+      if(p) Object.assign(p, {name, cat, price, oldPrice, stock, img, images, desc});
+    }else{
+      const newId = Date.now() * 1000 + Math.floor(Math.random() * 1000);
+      db.products.push({id:newId, name, cat, price, oldPrice, stock, sold:0, img, images, desc});
+    }
+  });
+  persist(ok);
+  closeProductForm();
+  renderProducts(); updateBadges();
+  showToast('পণ্য সেভ হয়েছে ✔');
+}
+function deleteProduct(id){
+  const p = DB.products.find(x => x.id === id);
+  if(p && confirm('"' + p.name + '" মুছে ফেলবেন?')){
+    dbTx(db => { db.products = db.products.filter(x => x.id !== id); });
+    renderProducts();
+  }
+}
+
+/* ================= অর্ডার ম্যানেজমেন্ট ================= */
+function renderOrders(){
+  const counts = {all:DB.orders.length};
+  Object.keys(STATUS).forEach(k => counts[k] = DB.orders.filter(o => o.status === k).length);
+  document.getElementById('order-chips').innerHTML = ['all'].concat(Object.keys(STATUS)).map(k =>
+    `<div class="chip ${orderFilter === k ? 'on' : ''}" onclick="setOrderFilter('${k}')">${k === 'all' ? 'সব' : STATUS[k]} (${bn(counts[k])})</div>`).join('');
+  const q = toEn(document.getElementById('orderSearch').value.trim().toLowerCase());
+  const list = DB.orders.filter(o => (orderFilter === 'all' || o.status === orderFilter) &&
+    (!q || String(o.id).includes(q.replace('#','')) || o.customer.toLowerCase().includes(q) || o.phone.includes(q))).sort((a,b) => b.id - a.id);
+  const box = document.getElementById('order-list');
+  if(!list.length){ box.innerHTML = '<div class="empty"><i class="fa-solid fa-clipboard-list"></i>কোনো অর্ডার নেই</div>'; return; }
+  box.innerHTML = list.map(o => `
+    <div class="o-card">
+      <div class="o-top"><span>অর্ডার #${bn(o.id)}</span><span class="st st-${o.status}">${STATUS[o.status]}</span></div>
+      <p><i class="fa-solid fa-user"></i> <strong>${esc(o.customer)}</strong></p>
+      <p><i class="fa-solid fa-phone"></i> ${esc(o.phone)} <a class="call" href="tel:${esc(o.phone)}">কল করুন</a></p>
+      <p><i class="fa-solid fa-location-dot"></i> ${esc(o.address)}</p>
+      <div style="margin-top:8px">${o.items.map(l => `<div class="o-line"><span>${esc(l.name)} × ${bn(l.qty)}</span><span>${taka(l.price * l.qty)}</span></div>`).join('')}</div>
+      <div class="o-sum">
+        <div class="o-line"><span>ডেলিভারি চার্জ</span><span>${taka(o.delivery || 0)}</span></div>
+        <div class="o-line t"><span>মোট (ক্যাশ অন ডেলিভারি)</span><span>${taka(o.total)}</span></div>
+      </div>
+      <p class="muted" style="margin-top:6px">${fmtDateTime(o.createdAt)}</p>
+      <select onchange="changeStatus(${o.id}, this.value)">
+        ${Object.keys(STATUS).map(k => `<option value="${k}" ${o.status === k ? 'selected' : ''}>${STATUS[k]}</option>`).join('')}
+      </select>
+    </div>`).join('');
+}
+function toEn(s){ return String(s).replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d)); }
+function setOrderFilter(f){ orderFilter = f; renderOrders(); }
+function changeStatus(id, status){
+  if(status === 'cancelled' && !confirm('অর্ডারটি বাতিল করবেন?')){ renderOrders(); return; }
+  let short = null;
+  dbTx(db => {
+    const o = db.orders.find(x => x.id === id);
+    if(!o) return;
+    if(!o.stockDeducted && (status === 'shipped' || status === 'delivered')){
+      const bad = o.items.find(l => { const p = db.products.find(x => x.id === l.id); return p && p.stock < l.qty; });
+      if(bad) short = bad.name;
+    }
+    applyStatus(db, o, status);
+  });
+  if(short) showToast(short + ' এর স্টক কম ছিল, স্টক ০ করা হয়েছে');
+  renderOrders(); updateBadges();
+}
+
+/* ================= কাস্টমার চ্যাট ================= */
+function renderChatList(){
+  document.getElementById('chat-list-view').style.display = 'block';
+  document.getElementById('chat-thread-view').style.display = 'none';
+  const box = document.getElementById('chat-list-view');
+  const list = [...DB.chats].sort((a,b) => lastTime(b) - lastTime(a));
+  if(!list.length){ box.innerHTML = '<h2 class="sec">কাস্টমার মেসেজ</h2><div class="empty"><i class="fa-regular fa-comment-dots"></i>এখনো কোনো মেসেজ আসেনি</div>'; return; }
+  box.innerHTML = '<h2 class="sec">কাস্টমার মেসেজ</h2>' + list.map(c => {
+    const last = c.messages[c.messages.length - 1];
+    return `<div class="c-item" onclick="openThread('${esc(c.id)}')">
+      <div class="avatar"><i class="fa-solid fa-user"></i></div>
+      <div style="flex:1;text-align:left;min-width:0"><strong>${esc(c.name || 'অতিথি')}</strong>
+        <div class="muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${last ? esc(last.text) : ''}</div></div>
+      ${c.unread ? `<span class="nbadge" style="position:static">${bn(c.unread)}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+function lastTime(c){ const l = c.messages[c.messages.length - 1]; return l ? l.time : 0; }
+function openThread(id){
+  currentChat = id;
+  dbTx(db => { const c = db.chats.find(x => x.id === id); if(c) c.unread = 0; });
+  document.getElementById('chat-list-view').style.display = 'none';
+  document.getElementById('chat-thread-view').style.display = 'block';
+  renderThread(); updateBadges();
+}
+function renderThread(){
+  const c = DB.chats.find(x => x.id === currentChat);
+  if(!c){ closeThread(); return; }
+  document.getElementById('thread-name').innerText = (c.name || 'অতিথি') + (c.phone ? ' • ' + c.phone : '');
+  document.getElementById('thread-box').innerHTML = c.messages.map(m => `<div class="msg ${m.from}">${esc(m.text)}<small>${fmtTime(m.time)}</small></div>`).join('');
+  document.getElementById('thread-box').scrollIntoView({block:'end'});
+}
+function closeThread(){ currentChat = null; renderChatList(); updateBadges(); }
+function sendReply(){
+  const input = document.getElementById('replyInput');
+  const text = input.value.trim().slice(0, 500);
+  if(!text || !currentChat) return;
+  dbTx(db => {
+    const c = db.chats.find(x => x.id === currentChat);
+    if(c){ c.messages.push({from:'admin', text, time:Date.now()}); c.userUnread = (c.userUnread || 0) + 1; }
+  });
+  input.value = '';
+  renderThread();
+}
+
+/* ================= সেটিংস ================= */
+function fillSettings(){
+  renderCatManager();
+  document.getElementById('setShopName').value = DB.account.shopName || '';
+  document.getElementById('setDhaka').value = DB.account.deliveryDhaka;
+  document.getElementById('setOutside').value = DB.account.deliveryOutside;
+  document.getElementById('marketNameView').innerText = DB.settings.marketName || 'SRG Shopping Mall';
+}
+function renderCatManager(){
+  const box = document.getElementById('cat-manager');
+  box.innerHTML = DB.categories.map((c, i) => {
+    const n = DB.products.filter(p => p.cat === c.id).length;
+    return `<div class="row"><span><i class="fa-solid fa-${catIcon(c.id)}" style="color:#007bff"></i> ${esc(c.name)} <span class="muted">(${bn(n)}টি পণ্য)</span></span>
+      ${c.owner === 'super' ? '<span class="muted" style="white-space:nowrap"><i class="fa-solid fa-lock"></i> মূল</span>'
+        : `<span style="white-space:nowrap"><button class="icon-btn edit" onclick="renameCategory(${i})"><i class="fa-solid fa-pen"></i></button><button class="icon-btn del" onclick="deleteCategory(${i})"><i class="fa-solid fa-trash-can"></i></button></span>`}</div>`;
+  }).join('') || '<div class="empty">কোনো ক্যাটাগরি নেই</div>';
+}
+function addCategory(){
+  const inp = document.getElementById('newCatName');
+  const name = inp.value.trim().slice(0, 30);
+  if(!name){ showToast('ক্যাটাগরির নাম লিখুন'); return; }
+  if(DB.categories.some(c => c.name.toLowerCase() === name.toLowerCase())){ showToast('এই ক্যাটাগরি আগেই আছে'); return; }
+  dbTx(db => { ensureCategory(db, name); });
+  inp.value = '';
+  renderCatManager();
+  showToast('ক্যাটাগরি যোগ হয়েছে ✔');
+}
+function renameCategory(i){
+  const c = DB.categories[i];
+  if(!c) return;
+  if(c.owner === 'super'){ showToast('মালিকের তৈরি মূল ক্যাটাগরি বদলানো যায় না'); return; }
+  const n = (prompt('নতুন নাম লিখুন:', c.name) || '').trim().slice(0, 30);
+  if(!n || n === c.name) return;
+  if(DB.categories.some((x, j) => j !== i && x.name.toLowerCase() === n.toLowerCase())){ showToast('এই নামে ক্যাটাগরি আছে'); return; }
+  dbTx(db => { const x = db.categories.find(y => y.id === c.id); if(x) x.name = n; });
+  renderCatManager();
+}
+function deleteCategory(i){
+  const c = DB.categories[i];
+  if(!c) return;
+  if(c.owner === 'super'){ showToast('মালিকের তৈরি মূল ক্যাটাগরি মোছা যায় না'); return; }
+  const used = DB.products.filter(p => p.cat === c.id).length;
+  if(used){ showToast('"' + c.name + '" এ ' + bn(used) + 'টি পণ্য আছে। আগে সেগুলো অন্য ক্যাটাগরিতে নিন।'); return; }
+  if(!confirm('"' + c.name + '" ক্যাটাগরি মুছবেন?')) return;
+  dbTx(db => { db.categories = db.categories.filter(y => y.id !== c.id); });
+  renderCatManager();
+}
+function saveSettings(){
+  const name = document.getElementById('setShopName').value.trim();
+  const dh = parseInt(document.getElementById('setDhaka').value, 10);
+  const out = parseInt(document.getElementById('setOutside').value, 10);
+  if(!name || isNaN(dh) || dh < 0 || isNaN(out) || out < 0){ showToast('সব তথ্য সঠিকভাবে দিন'); return; }
+  dbTx(db => { db.account.shopName = name.slice(0, 60); db.account.deliveryDhaka = dh; db.account.deliveryOutside = out; });
+  applyShopName();
+  showToast('সেটিংস সেভ হয়েছে ✔');
+}
+async function changePassword(){
+  const o = document.getElementById('pwOld').value, n = document.getElementById('pwNew').value;
+  if(n.length < 6){ showToast('নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন'); return; }
+  try{
+    const {Au, auth} = FB, u = auth.currentUser;
+    await Au.reauthenticateWithCredential(u, Au.EmailAuthProvider.credential(u.email, o));
+    await Au.updatePassword(u, n);
+    document.getElementById('pwOld').value = ''; document.getElementById('pwNew').value = '';
+    showToast('পাসওয়ার্ড বদলানো হয়েছে ✔');
+  }catch(e){ showToast(e && e.code === 'auth/invalid-credential' ? 'বর্তমান পাসওয়ার্ড ভুল' : authMsg(e)); }
+}
+function exportData(){
+  try{
+    const blob = new Blob([JSON.stringify(DB, null, 1)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'srg-backup-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    showToast('ব্যাকআপ ডাউনলোড হচ্ছে');
+  }catch(e){ showToast('ডাউনলোড করা যায়নি'); }
+}
+function importData(input){
+  showToast('Firebase চালু থাকায় ব্যাকআপ রিস্টোর এখন বন্ধ');
+  input.value = '';
+}
+function resetData(){
+  showToast('Firebase চালু থাকায় এখান থেকে ডেটা রিসেট বন্ধ');
+}
+
+window.onload = authInit;
+</script>
+<script>if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js');</script>
+</body>
+</html>

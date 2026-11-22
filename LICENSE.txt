@@ -1,0 +1,10 @@
+Copyright (c) 2026 Md. Sadikul Islam (এমডি সাদিকুল ইসলাম), SRG Shopping Mall. All rights reserved.
+
+This software and its source code are proprietary. The code is publicly viewable
+only so that the apps can be served to users. No licence or permission is granted
+to copy, modify, redistribute, republish, rebrand, sell, or otherwise use this
+code or the SRG Shopping Mall name, logo or icons without prior written permission
+from the owner.
+
+এই সফটওয়্যার ও কোডের সব অধিকার এমডি সাদিকুল ইসলামের। মালিকের লিখিত অনুমতি ছাড়া কপি, বদল,
+পুনঃপ্রকাশ, নিজের নামে চালানো বা বিক্রি নিষিদ্ধ।
