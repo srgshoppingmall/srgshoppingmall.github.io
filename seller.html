@@ -640,12 +640,22 @@ function refreshView(){
   updateBadges();
 }
 function stopSync(){ unsubs.forEach(u => { try{ u(); }catch(e){} }); unsubs = []; if(seenTimer){ clearInterval(seenTimer); seenTimer = null; } }
+const backfilled = {};
 function startSync(){
   stopSync();
   const {F, Au, db, auth} = FB;
   const bad = e => showToast('ডেটা পড়া যায়নি: ' + (e.code || e.message));
   unsubs.push(F.onSnapshot(F.query(F.collection(db, 'products'), F.where('sellerId', '==', UID)), s => {
-    DB.products = s.docs.map(d => d.data()); refreshView();
+    DB.products = s.docs.map(d => d.data());
+    DB.products.forEach(p => {                              // অন্য ফোনে বানানো ক্যাটাগরির নাম এখানেও দেখানোর জন্য
+      let c = DB.categories.find(x => x.id === p.cat);
+      if(!c && p.catName){ DB.categories.push({id: p.cat, name: p.catName, icon: 'tag', owner: 'seller'}); c = DB.categories[DB.categories.length - 1]; }
+      if(c && !p.catName && !backfilled[p.id]){                // আগের পণ্যে ক্যাটাগরির নাম একবার জুড়ে দেওয়া
+        backfilled[p.id] = 1;
+        F.setDoc(F.doc(db, 'products', String(p.id)), Object.assign(plain(p), {catName: c.name, sellerId: UID, sellerActive: true})).catch(() => {});
+      }
+    });
+    refreshView();
   }, bad));
   unsubs.push(F.onSnapshot(F.query(F.collection(db, 'orders'), F.where('sellerId', '==', UID)), s => {
     DB.orders = s.docs.map(d => d.data()).sort((x, y) => (y.id || 0) - (x.id || 0)); refreshView();
@@ -850,12 +860,13 @@ function saveProduct(){
 
   const ok = dbTx(db => {
     const cat = ensureCategory(db, catNameIn);
+    const catDisp = (db.categories.find(c => c.id === cat) || {}).name || catNameIn;
     if(id){
       const p = db.products.find(x => x.id === Number(id));
-      if(p) Object.assign(p, {name, cat, price, oldPrice, stock, img, images, desc});
+      if(p) Object.assign(p, {name, cat, catName: catDisp, price, oldPrice, stock, img, images, desc});
     }else{
       const newId = Date.now() * 1000 + Math.floor(Math.random() * 1000);
-      db.products.push({id:newId, name, cat, price, oldPrice, stock, sold:0, img, images, desc});
+      db.products.push({id:newId, name, cat, catName: catDisp, price, oldPrice, stock, sold:0, img, images, desc});
     }
   });
   persist(ok);

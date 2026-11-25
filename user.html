@@ -3,7 +3,7 @@
 <head><meta name="copyright" content="© 2026 Md. Sadikul Islam (এমডি সাদিকুল ইসলাম), SRG Shopping Mall. All rights reserved."><!-- © 2026 Md. Sadikul Islam (এমডি সাদিকুল ইসলাম), SRG Shopping Mall. All rights reserved. অনুমতি ছাড়া কপি, বদল বা পুনর্ব্যবহার নিষিদ্ধ। --><link rel="manifest" href="user-manifest.json"><link rel="icon" href="icon-user-192.png"><link rel="apple-touch-icon" href="icon-user-192.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#007bff">
+<meta name="theme-color" content="#0a0a0a">
 <title>SRG Shopping Mall</title>
 <style>
 i[class*="fa-"]{display:inline-block;line-height:1;font-style:normal;vertical-align:-0.125em}
@@ -176,6 +176,70 @@ body{background:#f4f6f9;color:#333;display:flex;flex-direction:column;height:100
 @keyframes popIn{0%{transform:scale(0)}100%{transform:scale(1)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 </style>
+<style id="theme-gold">
+body{background:#0a0a0a;color:#eee}
+.header{background:linear-gradient(135deg,#0a0a0a,#1f1700);border-bottom:1px solid #3a2e0a;box-shadow:0 2px 10px rgba(0,0,0,.6);color:#ffc933}
+.header .title{color:#ffc933}.header .sub{color:#e9d9a8;opacity:1}
+.search-bar-container{background:#0a0a0a;box-shadow:none}
+.search-box{background:#141414;border:1px solid #4a3a0e}
+.search-box:focus-within{border-color:#ffc933;background:#1a1a1a;box-shadow:0 0 8px rgba(255,201,51,.25)}
+.search-box i{color:#ffc933}.search-box input{color:#f2efe6}.search-box input::placeholder{color:#8f8670}
+.sec-title{color:#ffc933}
+.promo-banner{background:linear-gradient(135deg,#2a1d00,#7a5200 55%,#c78a00);box-shadow:0 4px 15px rgba(245,184,27,.25);color:#fff7dd}
+.category-icon{background:#161616;color:#ffc933;border:1px solid #3a2e0a;box-shadow:none}
+.category-item.active .category-icon{background:#ffc933;color:#111}
+.category-item span{color:#cfc7b0}.category-item.active span{color:#ffc933}
+.product-card{background:#151515;border:1px solid #3a2e0a;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.product-card:active{box-shadow:0 2px 8px rgba(0,0,0,.6)}
+.product-card img{background:#222}.product-card h3{color:#f2efe6}
+.meta-line{color:#a39b88}.meta-line i{color:#ffc933}.meta-line .low{color:#ff9f43}
+.product-card .price{color:#ffc933}.product-card .old-price{color:#8b8573}
+.btn-add{background:linear-gradient(135deg,#ffd24d,#e0a100);color:#1a1300;box-shadow:0 3px 8px rgba(245,184,27,.25)}
+.btn-add:active{background:#c78a00}.btn-add:disabled{background:#3a3a3a;color:#888;box-shadow:none}
+.btn-orange{background:linear-gradient(135deg,#ffb347,#e08a00);color:#1a1300;box-shadow:0 3px 6px rgba(224,138,0,.25)}
+.btn-outline{background:transparent;color:#ff6b6b;border:1px solid #ff6b6b}.btn-outline:active{background:rgba(255,107,107,.12)}
+.cart-item-box{background:#151515;border:1px solid #3a2e0a;box-shadow:none}
+.cart-checkbox{accent-color:#ffc933}.cart-item-box img{background:#222}
+.cart-item-info h3{color:#f2efe6}.cart-item-info .price{color:#ffc933}
+.btn-qty{background:#222;border:1px solid #4a3a0e;color:#ffc933}.btn-qty:active{background:#333}.qty-val{color:#f2efe6}
+.select-all{color:#cfc7b0}
+.total-price-box{background:#151515;border:1px dashed #ffc933;color:#f2efe6;box-shadow:none}
+.hint{color:#a39b88}
+.checkout-box{background:#151515;box-shadow:none;border:1px solid #3a2e0a}
+.checkout-box h3{color:#ffc933;border-bottom-color:#3a2e0a}
+.form-group label{color:#cfc7b0}
+.form-group input{background:#0f0f0f;border:1px solid #4a3a0e;color:#f2efe6}
+.form-group input:focus{border-color:#ffc933;background:#141414}
+.summary{background:#101010;border:1px solid #2a2208}.summary .r{color:#cfc7b0}
+.summary .r.t{border-top-color:#4a3a0e;color:#ffc933}
+.pay-box{background:#0f1f14;border:1px solid #1f5a35;color:#7be0a4}
+.empty{color:#a39b88}.empty i{color:#4a3a0e}
+.details-container{background:#151515;border:1px solid #3a2e0a;box-shadow:none;color:#eee}
+.details-main-img{border:1px solid #3a2e0a;background:#222}
+.thumb-img{border-color:#3a2e0a;background:#222}.thumb-img.active-thumb{border-color:#ffc933}
+.details-container h2{color:#f2efe6}.details-price{color:#ffc933}.details-old-price{color:#8b8573}
+.details-container p{color:#bdb59f}
+.stock-ok{background:#10281a;color:#5fdc93}.stock-low{background:#2b1d08;color:#ffb347}.stock-out{background:#2d1114;color:#ff7b7b}
+.btn-back{background:#2a2a2a;color:#ffc933}
+.chat-badge{background:linear-gradient(135deg,#ffd24d,#e0a100);color:#111}
+.profile-section{background:linear-gradient(135deg,#1a1405,#5c4100);box-shadow:0 4px 15px rgba(245,184,27,.2);color:#fff3cf}
+.profile-img{border-color:rgba(255,201,51,.5)}
+.info-box{background:#151515;border:1px solid #3a2e0a;box-shadow:none}
+.info-row{border-bottom-color:#2a2208}.info-row .t{color:#a39b88}.info-row .vv{color:#f2efe6}
+.o-card{background:#151515;border:1px solid #3a2e0a;box-shadow:none}
+.o-card p{color:#cfc7b0}.o-line{color:#d8d0ba}.o-sum{border-top-color:#4a3a0e}.o-sum .o-line.t{color:#ffc933}
+.st-shipped{background:#e0a100;color:#111}
+.pstep{color:#8f8670}.pstep::before{background:#3a3a3a}.pstep .dot{background:#3a3a3a}
+.pstep.done::before{background:#ffc933}.pstep.done .dot{background:#ffc933;color:#111}.pstep.done{color:#ffc933}
+.prog-cancel{background:#2d1114;color:#ff8a8a}
+.bottom-nav{background:#0d0d0d;border-top:1px solid #3a2e0a;box-shadow:0 -2px 10px rgba(0,0,0,.5)}
+.nav-item{color:#8f8670}.nav-item.active{color:#ffc933}.nav-item.active::before{background:#ffc933}
+.toast{background:#ffc933;color:#111}
+.modal{background:rgba(0,0,0,.75)}.modal-box{background:#151515;color:#eee;border:1px solid #3a2e0a}
+.msg.cust{background:#ffc933;color:#111}.msg.admin{background:#262626;color:#eee}
+.chat-input input{background:#0f0f0f;border-color:#4a3a0e;color:#eee}.chat-input button{background:#ffc933;color:#111}
+</style>
+
 </head>
 <body>
 
@@ -228,7 +292,7 @@ body{background:#f4f6f9;color:#333;display:flex;flex-direction:column;height:100
   </div>
 
   <div id="top_selling" class="page">
-    <h2 class="sec-title" style="font-size:18px;color:#ff5722"><i class="fa-solid fa-fire"></i> সবচেয়ে বেশি বিক্রি হওয়া পণ্য</h2>
+    <h2 class="sec-title" style="font-size:18px;color:#ffc933"><i class="fa-solid fa-fire"></i> সবচেয়ে বেশি বিক্রি হওয়া পণ্য</h2>
     <div id="top-selling-grid" class="product-grid"></div>
   </div>
 
@@ -262,7 +326,7 @@ body{background:#f4f6f9;color:#333;display:flex;flex-direction:column;height:100
   <div class="modal-box">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3><i class="fa-regular fa-comment-dots" style="color:#25d366"></i> সাপোর্ট চ্যাট</h3>
-      <button class="btn-delete-cart" style="color:#666" onclick="closeChat()"><i class="fa-solid fa-xmark"></i></button>
+      <button class="btn-delete-cart" style="color:#bdb59f" onclick="closeChat()"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="chat-thread" id="chat-thread"></div>
     <div class="chat-input">
@@ -276,7 +340,7 @@ body{background:#f4f6f9;color:#333;display:flex;flex-direction:column;height:100
   <div class="modal-box">
     <div class="ok-icon"><i class="fa-solid fa-circle-check"></i></div>
     <h3>অর্ডার সফল হয়েছে!</h3>
-    <p id="success-text" style="color:#666;font-size:14px;margin:10px 0 16px;line-height:1.7"></p>
+    <p id="success-text" style="color:#cfc7b0;font-size:14px;margin:10px 0 16px;line-height:1.7"></p>
     <button class="btn-add" onclick="closeSuccess()">আমার অর্ডার দেখুন</button>
   </div>
 </div>
@@ -676,7 +740,7 @@ function renderCart(){
   body.innerHTML = `
     <label class="select-all"><input type="checkbox" class="cart-checkbox" style="margin-right:0" ${allChecked ? 'checked' : ''} onchange="toggleAll(this.checked)"> সব পণ্য সিলেক্ট করুন</label>
     ${items}
-    <div class="total-price-box"><span>নির্বাচিত পণ্যের দাম:</span><span style="color:#007bff">${taka(selectedSubtotal())}</span></div>
+    <div class="total-price-box"><span>নির্বাচিত পণ্যের দাম:</span><span style="color:#ffc933">${taka(selectedSubtotal())}</span></div>
     <div class="hint">ডেলিভারি চার্জ ঠিকানা দেওয়ার পর যোগ হবে।</div>
     ${checkoutOpen ? '' : '<button class="btn-add btn-orange" style="padding:13px;font-size:15px;margin-top:15px" onclick="showCheckoutForm()">অর্ডার করুন</button>'}`;
 }
@@ -782,7 +846,7 @@ function renderDetails(id){
     ${imgs.length > 1 ? `<div class="details-gallery">${imgs.map((src,i) =>
       `<img class="thumb-img ${i === 0 ? 'active-thumb' : ''}" src="${esc(src)}" alt="" onclick="setMainImg(${p.id}, ${i})" onerror="imgFail(this,'${esc(p.cat)}')">`).join('')}</div>` : ''}
     <h2>${esc(p.name)}</h2>
-    <div style="font-size:12.5px;color:#777;margin:-2px 0 8px"><i class="fa-solid fa-store"></i> বিক্রেতা: ${esc(DB.account.shopName)}</div>
+    <div style="font-size:12.5px;color:#a39b88;margin:-2px 0 8px"><i class="fa-solid fa-store"></i> বিক্রেতা: ${esc(DB.account.shopName)}</div>
     <div class="details-price-container">
       <span class="details-price">${taka(p.price)}</span>
       ${p.oldPrice && p.oldPrice > p.price ? `<span class="details-old-price">${taka(p.oldPrice)}</span><span class="details-off">${bn(off)}% OFF</span>` : ''}
@@ -841,8 +905,8 @@ function renderAccount(){
       </div>
     </div>
     <div class="info-box">
-      <div class="info-row"><i class="ic fa-solid fa-phone" style="color:#007bff"></i><div><p class="t">মোবাইল নাম্বার</p><p class="vv">${esc(profile.phone || 'এখনো দেওয়া হয়নি')}</p></div></div>
-      <div class="info-row"><i class="ic fa-solid fa-location-dot" style="color:#ff5722"></i><div><p class="t">ডেলিভারি ঠিকানা</p><p class="vv">${esc(addr)}</p></div></div>
+      <div class="info-row"><i class="ic fa-solid fa-phone" style="color:#ffc933"></i><div><p class="t">মোবাইল নাম্বার</p><p class="vv">${esc(profile.phone || 'এখনো দেওয়া হয়নি')}</p></div></div>
+      <div class="info-row"><i class="ic fa-solid fa-location-dot" style="color:#ffc933"></i><div><p class="t">ডেলিভারি ঠিকানা</p><p class="vv">${esc(addr)}</p></div></div>
       <div class="info-row click" onclick="switchPage('orders')"><i class="ic fa-solid fa-clock-rotate-left" style="color:#2ae587"></i><div style="flex:1"><p class="vv">অর্ডার হিস্ট্রি দেখুন</p></div><i class="fa-solid fa-chevron-right" style="color:#ccc;font-size:12px"></i></div>
       <div class="info-row click" onclick="openChat()"><i class="ic fa-regular fa-comment-dots" style="color:#25d366"></i><div style="flex:1"><p class="vv">সাপোর্টে মেসেজ করুন</p></div><i class="fa-solid fa-chevron-right" style="color:#ccc;font-size:12px"></i></div>
     </div>`;
@@ -875,7 +939,7 @@ function renderOrders(){
         <div class="o-line t"><span>মোট (ক্যাশ অন ডেলিভারি)</span><span>${taka(o.total)}</span></div>
       </div>
       <p><i class="fa-solid fa-location-dot"></i> ${esc(o.address)}</p>
-      <p style="color:#999;font-size:12px">${fmtDate(o.createdAt)}</p>
+      <p style="color:#a39b88;font-size:12px">${fmtDate(o.createdAt)}</p>
       ${o.status === 'pending' ? `<div style="margin-top:8px"><button class="btn-add btn-outline" onclick="cancelOrder(${o.id})"><i class="fa-solid fa-ban"></i> অর্ডার বাতিল করুন</button></div>` : ''}
     </div>`).join('');
 }
@@ -950,6 +1014,18 @@ async function fbInit(){
   FB = {F, Au, db, auth};
   return FB;
 }
+const CORE_CATS = clone(SEED.categories);
+function normalizeCats(){
+  const map = {};
+  DB.products.forEach(p => {
+    let nm = String(p.catName || '').replace(/\s+/g, ' ').trim();
+    if(!nm){ const core = CORE_CATS.find(c => c.id === p.cat); nm = core ? core.name : 'অন্যান্য'; }
+    const key = nm.toLowerCase();
+    if(!map[key]){ const core = CORE_CATS.find(c => c.name.toLowerCase() === key); map[key] = {id: key, name: nm, icon: core ? core.icon : 'tag', owner: 'seller'}; }
+    p.cat = key;
+  });
+  DB.categories = Object.keys(map).map(k => map[k]);
+}
 async function loadShops(){
   const {F, db} = FB;
   const ids = [...new Set(DB.products.map(p => p.sellerId))].filter(id => id && !SHOPS[id]);
@@ -985,6 +1061,7 @@ async function loadProducts(reset){
     DB.products = keep;
     await Promise.all([loadShops(), ensureCartProducts()]);
     await loadShops();
+    normalizeCats();
     firstLoadDone = true; lastLoad = Date.now();
     syncCart(); updateBadge();
     if(currentPage !== 'product-details') renderCurrent();
